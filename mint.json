@@ -7,11 +7,11 @@
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
+    "primary": "#AB1515",
     "light": "#07C983",
-    "dark": "#0D9373",
+    "dark": "#AB1515",
     "anchors": {
-      "from": "#0D9373",
+      "from": "#AB1515",
       "to": "#07C983"
     }
   },
@@ -29,6 +29,10 @@
     {
       "name": "API Reference",
       "url": "api-reference"
+    },
+    {
+      "name": "Languages",
+      "url": "languages"
     }
   ],
   "anchors": [
@@ -81,11 +85,25 @@
         "api-reference/endpoint/create",
         "api-reference/endpoint/delete"
       ]
+    },
+    {
+      "group": "Languages",
+      "pages": [
+        "languages/introduction",
+        "languages/classification"
+      ]
+    },
+    {
+      "group": "Supported Languages",
+      "pages": [
+        "languages/identification",
+        "languages/translation"
+      ]
     }
   ],
   "footerSocials": {
     "x": "https://x.com/vamboai",
     "github": "https://github.com/vamboai",
-    "linkedin": "/https://www.linkedin.com/company/vambo-ai-tech/"
+    "linkedin": "https://www.linkedin.com/company/vambo-ai-tech/"
   }
 }
