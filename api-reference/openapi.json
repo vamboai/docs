@@ -21,7 +21,7 @@
   "paths": {
     "/identify/text": {
       "post": {
-        "description": "Returns the languages that the text is written in",
+        "description": "Returns the languages that the a given text is written in",
         "requestBody": {
           "content": {
             "application/json": {
@@ -42,20 +42,43 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Plant"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Unexpected error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
+                  "type": "object",
+                  "properties": {
+                    "primary": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "script": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["name", "script", "code"]
+                    },
+                    "additional": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "script": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          }
+                        },
+                        "required": ["name", "script", "code"]
+                      }
+                    }
+                  },
+                  "required": ["primary"]
                 }
               }
             }
