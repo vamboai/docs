@@ -35,7 +35,7 @@
     {
       "name": "WhatsApp Community",
       "icon": "whatsapp",
-      "url": "https://mintlify.com/community"
+      "url": "https://chat.whatsapp.com/LOEujam6MHg91mxqEAkK2t"
     }
   ],
   "navigation": [
@@ -71,6 +71,12 @@
           "group": "Identify",
           "pages": [
             "api-reference/identify/text"
+          ]
+        },
+        {
+          "group": "Translate",
+          "pages": [
+            "api-reference/translate/text"
           ]
         }
       ]
