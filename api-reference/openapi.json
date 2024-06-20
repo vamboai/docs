@@ -85,6 +85,53 @@
           }
         }
       }
+    },
+    "/translate/text": {
+      "post": {
+        "tags": ["Translate"],
+        "summary": "Translate text",
+        "operationId": "translateText",
+        "description": "Translates a given text",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string"
+                  },
+                  "source_lang": {
+                    "type": "string"
+                  },
+                  "target_lang": {
+                    "type": "string"
+                  }
+                },
+                "required": ["text", "target_lang"]
+              }              
+            }
+          }	
+        },
+        "responses": {
+          "200": {
+            "description": "Translate text response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "translated_text": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["translated_text"]
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
