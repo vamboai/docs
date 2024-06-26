@@ -15,24 +15,30 @@
   ],
   "security": [
     {
-      "bearerAuth": []
+      "bearerAuth": []  
     }
   ],
   "paths": {
     "/identify/text": {
       "post": {
-        "description": "Returns the languages that the a given text is written in",
-        "parameters": [
-          {
-            "name": "text",
-            "in": "query",
-            "description": "The text to identify",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
+        "description": "Returns the languages that the given text is written in",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The text to identify"
+                  }
+                },
+                "required": ["text"]
+              }
+            }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "Identify text response",
@@ -80,48 +86,100 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["detail"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["detail"]
+                }
+              }
+            }            
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["detail"]
+                }
+              }
+            }
+          },
           "422": {
             "description": "Unprocessable Entity",
             "content": {
               "application/json": {
-                "type": "object",
-                "properties": {
-                  "detail": {
-                    "type": "string"
-                  }
-                },
-                "required": ["detail"]
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["detail"]
+                }
               }
             }
+          }
         }
       }
     },
     "/translate/text": {
       "post": {
-        "tags": ["Translate"],
-        "summary": "Translate text",
-        "operationId": "translateText",
         "description": "Translates a given text",
         "requestBody": {
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "text": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The text to translate"
                   },
                   "source_lang": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The source language of the text"
                   },
                   "target_lang": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "The target language of the text"
                   }
                 },
-                "required": ["text", "target_lang"]
-              }              
+                "required": ["text", "source_lang", "target_lang"]
+              }
             }
-          }	
+          }
         },
         "responses": {
           "200": {
@@ -140,77 +198,77 @@
               }
             }
           },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["detail"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["detail"]
+                }
+              }
+            }            
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["detail"]
+                }
+              }
+            }
+          },
           "422": {
             "description": "Unprocessable Entity",
             "content": {
               "application/json": {
-                "type": "object",
-                "properties": {
-                  "detail": {
-                    "type": "string"
-                  }
-                },
-                "required": ["detail"]
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "detail": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["detail"]
+                }
               }
             }
+          }
         }
       }
     }
   },
   "components": {
     "schemas": {
-      "Plant": {
-        "required": [
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "description": "The name of the plant",
-            "type": "string"
-          },
-          "tag": {
-            "description": "Tag to specify the type",
-            "type": "string"
-          }
-        }
-      },
-      "NewPlant": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/Plant"
-          },
-          {
-            "required": [
-              "id"
-            ],
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Identification number of the plant",
-                "type": "integer",
-                "format": "int64"
-              }
-            }
-          }
-        ]
-      },
-      "Error": {
-        "required": [
-          "error",
-          "message"
-        ],
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "message": {
-            "type": "string"
-          }
-        }
-      }
+      
     },
     "securitySchemes": {
       "bearerAuth": {
