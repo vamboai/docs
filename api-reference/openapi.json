@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "https://api.vambo.ai"
+      "url": "https://api.vambo.ai/v1/"
     }
   ],
   "security": [
@@ -22,20 +22,17 @@
     "/identify/text": {
       "post": {
         "description": "Returns the languages that the a given text is written in",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "text": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "description": "The text to identify",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Identify text response",
@@ -82,7 +79,20 @@
                 }
               }
             }
-          }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "type": "object",
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  }
+                },
+                "required": ["detail"]
+              }
+            }
         }
       }
     },
@@ -129,7 +139,20 @@
                 }
               }
             }
-          }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "content": {
+              "application/json": {
+                "type": "object",
+                "properties": {
+                  "detail": {
+                    "type": "string"
+                  }
+                },
+                "required": ["detail"]
+              }
+            }
         }
       }
     }
